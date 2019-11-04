@@ -28,16 +28,15 @@ import java.util.ArrayList;
 import static android.Manifest.permission.READ_CONTACTS;
 
 
-
 public class MainActivity extends AppCompatActivity implements AbsListView.OnScrollListener {
     private ArrayList<Contact> listContacts;
     private RecyclerView lvContacts;
     public static final int REQUEST_PERMISSION = 1001;
-    public  static  final  int MY_PERMISSIONS_REQUEST_READ_CONTACTS=1;
+    public static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
     private ContactsAdapter adapterContacts;
     private AdapterLoad adapter;
     private Toolbar mTopToolbar;
-    public  static  final  int PERMISSIONS_CODE=1;
+    public static final int PERMISSIONS_CODE = 1;
 
     @SuppressLint("NewApi")
     @Override
@@ -47,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         init();
         setSupportActionBar(mTopToolbar);
 
+        getContacts();
+
         if (checkPermission()) {
             RVadapter();
 
@@ -55,19 +56,18 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
                     new String[]{Manifest.permission.READ_CONTACTS},
                     MY_PERMISSIONS_REQUEST_READ_CONTACTS);
 
-
-         //  callAdapter();
-
-
-
-
-            // ActivityCompat.requestPermissions(MainActivity.this, new String[]{READ_CONTACTS, WRITE_CONTACTS}, REQUEST_PERMISSION);
-           // RVadapter();
         }
-        //RVadapter();
+    }
 
+    private void getContacts() {
+        if (checkPermission()) {
+            RVadapter();
 
-
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
     }
 
     @Override
@@ -80,8 +80,10 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
 
                 if (permission.equals(READ_CONTACTS)) {
                     if (grantResult == PackageManager.PERMISSION_GRANTED) {
-                      RVadapter();
-                    } else {//requestPermissions(new String[]{Manifest.permission.SEND_SMS}, PERMISSIONS_CODE);
+                        RVadapter();
+                    } else {
+                        Toast.makeText(this, getString(R.string.permission), Toast.LENGTH_SHORT).show();
+                        getContacts();
                     }
                 }
             }
@@ -89,14 +91,10 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
 
     }
 
-    private void callAdapter() {
-        RVadapter();
-    }
-
     private void init() {
         lvContacts = (RecyclerView) findViewById(R.id.rvContacts);
         mTopToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        listContacts=new ArrayList<>();
+        listContacts = new ArrayList<>();
     }
 
 
@@ -110,10 +108,6 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
 
     }
 
-    // request permission
-    private void requestPermission() {
-
-    }
 
     //check permission
     private boolean checkPermission() {
@@ -122,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
     }
 
 
+    //get 10 records
     @Override
     public void onScrollStateChanged(AbsListView absListView, int i) {
 

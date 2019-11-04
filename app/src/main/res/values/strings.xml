@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Contacts Details</string>
+    <string name="permission">App needs permission to fetch contacts</string>
 </resources>

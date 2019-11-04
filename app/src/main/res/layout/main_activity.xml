@@ -11,6 +11,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
+        app:titleTextColor="@android:color/white"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary1"
         app:popupTheme="@style/AppTheme.PopupOverlay"/>

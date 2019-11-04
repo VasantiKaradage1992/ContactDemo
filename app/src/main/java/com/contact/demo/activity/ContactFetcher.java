@@ -20,10 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class ContactFetcher {
     private final Context context;
-    private Bitmap bp;
+    private Bitmap bitmap;
     private String contactNumber;
     ArrayList<Contact> listContacts;
     private String encodedImage = "null";
@@ -74,20 +73,18 @@ public class ContactFetcher {
                 }
 
                 Uri contactPhotoUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(Uri.encode(contactId)));
-                // if(contactPhotoUri!=null) {
 
                 InputStream photoDataStream = ContactsContract.Contacts.openContactPhotoInputStream(context.getContentResolver(), contactPhotoUri); // <-- always null
-                bp = BitmapFactory.decodeStream(photoDataStream);
+                bitmap = BitmapFactory.decodeStream(photoDataStream);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-                if(bp!=null) {
-                    bp.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+                if (bitmap != null) {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
                     byte[] b = baos.toByteArray();
 
                     encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-                }else
-                {
-                    encodedImage=null;
+                } else {
+                    encodedImage = null;
                 }
                 // }
                 Contact contact = new Contact(contactId, contactDisplayName, encodedImage, contactNumber);

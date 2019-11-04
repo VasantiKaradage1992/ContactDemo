@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.contact.demo.R;
 import com.contact.demo.model.Contact;
 
@@ -26,7 +27,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyHolder> implements AbsListView.OnScrollListener {
     private Context mContext;
     private ArrayList<Contact> contactArrayList;
-
 
 
     public ContactsAdapter(Context mContext, ArrayList<Contact> listContacts) {
@@ -46,14 +46,12 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyHold
         myHolder.tvName.setText(contactArrayList.get(i).name);
         String image = contactArrayList.get(i).photo;
 
-        if(image!=null) {
+        if (image != null) {
 
             byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             myHolder.circleImageView.setImageBitmap(decodedByte);
-        }
-        else
-        {
+        } else {
             myHolder.circleImageView.setImageResource(R.drawable.ic_user);
         }
 
@@ -92,7 +90,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyHold
 
     public class MyHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvName,tvNumber;
+        private TextView tvName, tvNumber;
         private CircleImageView circleImageView;
 
         public MyHolder(@NonNull View itemView) {
@@ -100,7 +98,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyHold
 
             tvName = itemView.findViewById(R.id.tv_name);
             circleImageView = itemView.findViewById(R.id.image);
-            tvNumber=itemView.findViewById(R.id.tv_number);
+            tvNumber = itemView.findViewById(R.id.tv_number);
 
         }
     }

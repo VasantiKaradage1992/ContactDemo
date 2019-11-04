@@ -29,5 +29,12 @@
         android:padding="5dp"
         />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_number"
+        android:layout_marginStart="50dp"
+        android:background="@android:color/darker_gray"/>
+
 
 </RelativeLayout>
